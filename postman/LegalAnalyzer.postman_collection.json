@@ -1,0 +1,43 @@
+{
+  "info": {
+    "name": "Legal Analyzer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Upload",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "file", "type": "file", "src": "C:/path/to/Contract.pdf" }
+          ]
+        },
+        "url": { "raw": "http://localhost:8080/api/upload", "host": ["http://localhost:8080"], "path": ["api","upload"] }
+      }
+    },
+    {
+      "name": "Analyze",
+      "request": {
+        "method": "POST",
+        "url": { "raw": "http://localhost:8080/api/analyze/{{job_id}}", "host": ["http://localhost:8080"], "path": ["api","analyze","{{job_id}}"] }
+      }
+    },
+    {
+      "name": "Status",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:8080/api/status/{{job_id}}", "host": ["http://localhost:8080"], "path": ["api","status","{{job_id}}"] }
+      }
+    },
+    {
+      "name": "Results",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:8080/api/results/{{job_id}}", "host": ["http://localhost:8080"], "path": ["api","results","{{job_id}}"] }
+      }
+    }
+  ]
+}

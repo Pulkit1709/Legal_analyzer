@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legal-analyzer-worker
+spec:
+  replicas: {{ .Values.replicaCount.worker }}
+  selector:
+    matchLabels:
+      app: legal-analyzer-worker
+  template:
+    metadata:
+      labels:
+        app: legal-analyzer-worker
+    spec:
+      containers:
+        - name: worker
+          image: {{ .Values.image.worker }}
+          resources:
+{{ toYaml .Values.resources.worker | indent 12 }}

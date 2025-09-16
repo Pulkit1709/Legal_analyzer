@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legal-analyzer-api
+spec:
+  replicas: {{ .Values.replicaCount.api }}
+  selector:
+    matchLabels:
+      app: legal-analyzer-api
+  template:
+    metadata:
+      labels:
+        app: legal-analyzer-api
+    spec:
+      containers:
+        - name: api
+          image: {{ .Values.image.api }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MODEL_VERSION
+              value: {{ .Values.env.MODEL_VERSION | quote }}
+            - name: ENFORCE_HTTPS
+              value: {{ .Values.env.ENFORCE_HTTPS | quote }}
+            - name: RETENTION_DAYS
+              value: {{ .Values.env.RETENTION_DAYS | quote }}
+          resources:
+{{ toYaml .Values.resources.api | indent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: legal-analyzer-api
+spec:
+  selector:
+    app: legal-analyzer-api
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legal-analyzer-frontend
+spec:
+  replicas: {{ .Values.replicaCount.frontend }}
+  selector:
+    matchLabels:
+      app: legal-analyzer-frontend
+  template:
+    metadata:
+      labels:
+        app: legal-analyzer-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.image.frontend }}
+          ports:
+            - containerPort: 8501
+          resources:
+{{ toYaml .Values.resources.frontend | indent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: legal-analyzer-frontend
+spec:
+  selector:
+    app: legal-analyzer-frontend
+  ports:
+    - port: 80
+      targetPort: 8501
+      protocol: TCP

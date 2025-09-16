@@ -1,0 +1,43 @@
+image:
+  api: ghcr.io/ORG/legal-analyzer-api:latest
+  worker: ghcr.io/ORG/legal-analyzer-worker:latest
+  frontend: ghcr.io/ORG/legal-analyzer-frontend:latest
+
+replicaCount:
+  api: 2
+  worker: 2
+  frontend: 1
+
+env:
+  MODEL_VERSION: roberta-base@local
+  ENFORCE_HTTPS: "true"
+  RETENTION_DAYS: "7"
+  S3_BUCKET: your-bucket
+  AWS_REGION: us-east-1
+  CLAMD_HOST: ""
+  CLAMD_PORT: "3310"
+  DATABASE_URL: postgresql://user:pass@postgres:5432/legal
+  REDIS_URL: redis://redis:6379/0
+
+resources:
+  api:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+  worker:
+    requests:
+      cpu: 1
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+  frontend:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi

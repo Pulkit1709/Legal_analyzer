@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+*.coverage
+.pytest_cache/
+
+# Virtual envs
+.venv/
+.venv312/
+
+# IDE
+.vscode/
+.idea/
+
+# Data & artifacts (keep out of git)
+artifacts/
+storage/
+models/
+data/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

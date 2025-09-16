@@ -1,0 +1,20 @@
+<View>
+  <Header value="Clause Risk Labeling"/>
+  <Text name="text" value="$text" granularity="word"/> 
+
+  <Choices name="labels" toName="text" choice="multiple" showInline="true">
+    <Choice value="Financial"/>
+    <Choice value="Compliance"/>
+    <Choice value="Liability"/>
+    <Choice value="Operational"/>
+    <Choice value="Safe"/>
+  </Choices>
+
+  <Choices name="severity" toName="text" choice="single" showInline="true">
+    <Choice value="Low"/>
+    <Choice value="Medium"/>
+    <Choice value="High"/>
+  </Choices>
+
+  <Textarea name="notes" toName="text" placeholder="Annotation rationale / boundary notes" rows="3"/>
+</View>
